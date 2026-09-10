@@ -77,7 +77,7 @@ function Hero({ name, heroImage, onHeroImageChange }) {
         {/* Center Main Portrait Card */}
         <div className="hero-portrait-card">
           <img
-            src={heroImage || heroAsset}
+            src={heroAsset}
             alt={safeName}
             className="hero-portrait-img"
           />
