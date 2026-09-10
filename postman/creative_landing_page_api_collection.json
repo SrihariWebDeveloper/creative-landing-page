@@ -1,0 +1,88 @@
+{
+  "info": {
+    "name": "Creative Landing Page API",
+    "description": "Collection for GET, POST, and PUT content APIs for the Creative Landing Page project.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET Content",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/content",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Create Content",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"JENNY\",\n  \"aboutCompany\": \"We create modern digital experiences through creativity, technology and thoughtful design.\",\n  \"whyChoose\": \"We focus on quality, creativity and meaningful experiences that make every project stand out.\",\n  \"heroImage\": \"/images/hero.png\",\n  \"galleryImages\": [\"/images/hero_portrait.jpg\", \"/images/hero.png\", \"/images/hero_portrait.jpg\", \"/images/hero.png\", \"/images/hero_portrait.jpg\"],\n  \"introImages\": [\"/images/intro-1.jpg\", \"/images/intro-2.jpg\", \"/images/hero.png\", \"/images/intro-1.jpg\"],\n  \"showcaseImages\": [\"/images/intro-1.jpg\", \"/images/hero.png\", \"/images/intro-2.jpg\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/content",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Update Content",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Hony\",\n  \"aboutCompany\": \"We create modern digital experiences through creativity, technology and thoughtful design.\",\n  \"whyChoose\": \"We focus on quality, creativity and meaningful experiences that make every project stand out.\",\n  \"heroImage\": \"https://res.cloudinary.com/djrv2wfaf/image/upload/v1789047699/creative-landing-page/xfq9caqldnrhagirzmgb.jpg\",\n  \"galleryImages\": [\"/images/hero_portrait.jpg\", \"/images/hero.png\", \"/images/hero_portrait.jpg\", \"/images/hero.png\", \"/images/hero_portrait.jpg\"],\n  \"introImages\": [\"/images/intro-1.jpg\", \"/images/intro-2.jpg\", \"/images/hero.png\", \"/images/intro-1.jpg\"],\n  \"showcaseImages\": [\"/images/intro-1.jpg\", \"/images/hero.png\", \"/images/intro-2.jpg\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/content/:id",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content",
+            ":id"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
