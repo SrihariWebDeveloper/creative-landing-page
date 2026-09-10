@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import { getContent, updateContent } from "../services/api";
 import ContentForm from "../components/ContentForm";
 
@@ -32,9 +34,9 @@ function AdminPage() {
     try {
       const response = await updateContent(content._id, formData);
       setContent(response.data);
-      alert("Content updated successfully");
+      toast.success("Content updated successfully");
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message || "Failed to update content");
     }
   };
 

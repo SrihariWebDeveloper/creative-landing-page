@@ -173,8 +173,8 @@ img {
   position: relative;
   z-index: 3;
   width: 100%;
-  max-width: 950px;
-  min-height: 520px;
+  max-width: 1100px;
+  min-height: 620px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,8 +183,8 @@ img {
 /* 1. Center Portrait Card */
 .hero-portrait-card {
   position: relative;
-  width: 320px;
-  height: 480px;
+  width: 430px;
+  height: 560px;
   border-radius: 2px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
   z-index: 2;
@@ -437,6 +437,14 @@ img {
   height: 100%;
 }
 
+.mosaic-img-box img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
 .gold-pattern-bg {
   background: linear-gradient(135deg, #d47a1f 0%, #8b3a03 100%);
 }
@@ -561,6 +569,14 @@ img {
   height: 100%;
   border-radius: 4px;
   overflow: hidden;
+}
+
+.card-img-box img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card-center {
@@ -768,6 +784,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .gallery-card-footer {
@@ -857,6 +874,15 @@ img {
   flex-shrink: 0;
   cursor: pointer;
   background: #18181c;
+  padding: 0;
+}
+
+.thumb-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
 .thumb-card:hover,

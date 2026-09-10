@@ -1,18 +1,37 @@
 import { useRef, useState } from "react";
 
-const initialGalleryImages = [
-  "/images/hero_portrait.jpg",
-  "/images/hero.png",
-  "/images/hero_portrait.jpg",
-  "/images/hero.png",
-  "/images/hero_portrait.jpg",
-];
+import { uploadImage } from "../services/api";
+import heroAsset from "../assets/images/hero.png";
+import galleryAsset2 from "../assets/images/2.jpg";
+import galleryAsset3 from "../assets/images/3.jpg";
+import galleryAsset4 from "../assets/images/4.jpg";
+import galleryAsset5 from "../assets/images/5.jpg";
+import galleryAsset6 from "../assets/images/6.jpg";
+import galleryAsset7 from "../assets/images/7.jpg";
+import galleryAsset8 from "../assets/images/8.jpg";
+import galleryAsset9 from "../assets/images/9.jpg";
+import galleryAsset10 from "../assets/images/10.jpg";
+import galleryAsset11 from "../assets/images/11.jpg";
 
-function Gallery() {
-  const [galleryImages, setGalleryImages] = useState(initialGalleryImages);
+function Gallery({ galleryImages, onGalleryImagesChange }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [targetUploadIndex, setTargetUploadIndex] = useState(null);
   const fileInputRef = useRef(null);
+
+  const images = Array.isArray(galleryImages) && galleryImages.length
+    ? galleryImages
+    : [
+      galleryAsset2,
+      galleryAsset3,
+      galleryAsset4,
+      galleryAsset5,
+      galleryAsset6,
+      galleryAsset7,
+      galleryAsset8,
+      galleryAsset9,
+      galleryAsset10,
+      galleryAsset11
+    ];
 
   const handleUploadClick = (e, idx) => {
     e.stopPropagation();
@@ -22,16 +41,25 @@ function Gallery() {
     }
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
-    if (file && targetUploadIndex !== null) {
-      const newUrl = URL.createObjectURL(file);
-      setGalleryImages((prev) => {
-        const updated = [...prev];
-        updated[targetUploadIndex] = newUrl;
-        return updated;
-      });
+
+    if (!file || targetUploadIndex === null) {
+      return;
+    }
+
+    try {
+      const response = await uploadImage(file);
+      const updated = [...images];
+      updated[targetUploadIndex] = response.url;
+
+      if (onGalleryImagesChange) {
+        onGalleryImagesChange(updated);
+      }
+
       setActiveIndex(targetUploadIndex);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -57,7 +85,7 @@ function Gallery() {
         <div className="gallery-main-card">
           <div className="gallery-img-wrapper" style={{ position: "relative" }}>
             <img
-              src={galleryImages[activeIndex]}
+              src={images[activeIndex] || images[0]}
               alt="Main Gallery Preview"
               className="gallery-main-img"
             />
@@ -86,7 +114,7 @@ function Gallery() {
           <div className="gallery-card-footer">
             <div className="author-info">
               <div className="author-avatar">
-                <img src="/images/hero.png" alt="Avatar" />
+                <img src={heroAsset} alt="Avatar" />
               </div>
               <div className="author-meta">
                 <span className="author-name">Cameron Williamson</span>
@@ -119,13 +147,20 @@ function Gallery() {
         {/* Full-width Thumbnails Row */}
         <div className="gallery-thumbnails-row">
           <div className="thumbnails-grid">
-            {galleryImages.map((img, idx) => (
+            {images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
                 className={`thumb-card ${activeIndex === idx ? "active" : ""}`}
               >
                 <img src={img} alt={`Gallery ${idx + 1}`} />
+                <span className="thumb-upload-icon" onClick={(e) => handleUploadClick(e, idx)}>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
+                </span>
               </button>
             ))}
           </div>

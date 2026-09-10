@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
 
+import introAsset3 from "../assets/images/3.jpg";
+import introAsset4 from "../assets/images/4.jpg";
+import introAsset5 from "../assets/images/5.jpg";
+import introAsset6 from "../assets/images/6.jpg";
+
 function Intro({ aboutCompany, whyChoose }) {
   const introText =
     aboutCompany ||
@@ -7,10 +12,10 @@ function Intro({ aboutCompany, whyChoose }) {
     " Sed ac tellus fermentum, a aliquet felis. Duis id sagittis, purus auctor convallis. Pellentesque in quis rhoncus nisl sed metus gravida. Consectetur au miu/tur eros.";
 
   const [mosaicImages, setMosaicImages] = useState([
-    "/images/intro-1.jpg",
-    "/images/intro-2.jpg",
-    "/images/hero.png",
-    "/images/intro-1.jpg"
+    introAsset3,
+    introAsset4,
+    introAsset5,
+    introAsset6
   ]);
 
   const [activeIndex, setActiveIndex] = useState(null);

@@ -1,11 +1,25 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
-function Hero({ name }) {
+import { uploadImage } from "../services/api";
+import heroAsset from "../assets/images/hero.png";
+
+function Hero({ name, heroImage, onHeroImageChange }) {
   const safeName = name || "Jenny";
   const username = "jameswill";
 
-  const [heroImage, setHeroImage] = useState("/images/hero.png");
   const fileInputRef = useRef(null);
+
+  const titleLetters = String(safeName)
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "")
+    .split("");
+
+  const titleRows = [];
+
+  for (let i = 0; i < titleLetters.length; i += 3) {
+    titleRows.push(titleLetters.slice(i, i + 3).join(" . "));
+  }
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -13,11 +27,18 @@ function Hero({ name }) {
     }
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const newImageUrl = URL.createObjectURL(file);
-      setHeroImage(newImageUrl);
+
+    if (!file) return;
+
+    try {
+      const response = await uploadImage(file);
+      if (onHeroImageChange) {
+        onHeroImageChange(response.url);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -44,16 +65,19 @@ function Hero({ name }) {
           ))}
         </div>
 
-        {/* Top-Left Title: J.E.N / N.Y */}
+        {/* Top-Left Title: dynamic name rendered using the same title-row style */}
         <div className="hero-title-overlay">
-          <div className="title-row">J . E . N</div>
-          <div className="title-row">N . Y</div>
+          {titleRows.map((row, index) => (
+            <div key={`${row}-${index}`} className="title-row">
+              {row}
+            </div>
+          ))}
         </div>
 
         {/* Center Main Portrait Card */}
         <div className="hero-portrait-card">
           <img
-            src={heroImage}
+            src={heroImage || heroAsset}
             alt={safeName}
             className="hero-portrait-img"
           />

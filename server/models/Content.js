@@ -18,6 +18,41 @@ const contentSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true
+    },
+
+    heroImage: {
+      type: String,
+      default: "/images/hero.png"
+    },
+
+    galleryImages: {
+      type: [String],
+      default: [
+        "/images/hero_portrait.jpg",
+        "/images/hero.png",
+        "/images/hero_portrait.jpg",
+        "/images/hero.png",
+        "/images/hero_portrait.jpg"
+      ]
+    },
+
+    introImages: {
+      type: [String],
+      default: [
+        "/images/intro-1.jpg",
+        "/images/intro-2.jpg",
+        "/images/hero.png",
+        "/images/intro-1.jpg"
+      ]
+    },
+
+    showcaseImages: {
+      type: [String],
+      default: [
+        "/images/intro-1.jpg",
+        "/images/hero.png",
+        "/images/intro-2.jpg"
+      ]
     }
   },
   {

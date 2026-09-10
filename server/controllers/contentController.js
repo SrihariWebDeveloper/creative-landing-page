@@ -1,5 +1,26 @@
 import Content from "../models/Content.js";
 
+const defaultGalleryImages = [
+  "/images/hero_portrait.jpg",
+  "/images/hero.png",
+  "/images/hero_portrait.jpg",
+  "/images/hero.png",
+  "/images/hero_portrait.jpg"
+];
+
+const defaultIntroImages = [
+  "/images/intro-1.jpg",
+  "/images/intro-2.jpg",
+  "/images/hero.png",
+  "/images/intro-1.jpg"
+];
+
+const defaultShowcaseImages = [
+  "/images/intro-1.jpg",
+  "/images/hero.png",
+  "/images/intro-2.jpg"
+];
+
 // GET CONTENT
 export const getContent = async (req, res) => {
   try {
@@ -12,9 +33,31 @@ export const getContent = async (req, res) => {
         aboutCompany:
           "We create modern digital experiences through creativity, technology and thoughtful design.",
         whyChoose:
-          "We focus on quality, creativity and meaningful experiences that make every project stand out."
+          "We focus on quality, creativity and meaningful experiences that make every project stand out.",
+        heroImage: "/images/hero.png",
+        galleryImages: defaultGalleryImages,
+        introImages: defaultIntroImages,
+        showcaseImages: defaultShowcaseImages
       });
     }
+
+    if (!content.heroImage) {
+      content.heroImage = "/images/hero.png";
+    }
+
+    if (!Array.isArray(content.galleryImages) || content.galleryImages.length === 0) {
+      content.galleryImages = defaultGalleryImages;
+    }
+
+    if (!Array.isArray(content.introImages) || content.introImages.length === 0) {
+      content.introImages = defaultIntroImages;
+    }
+
+    if (!Array.isArray(content.showcaseImages) || content.showcaseImages.length === 0) {
+      content.showcaseImages = defaultShowcaseImages;
+    }
+
+    await content.save();
 
     res.status(200).json({
       success: true,
@@ -32,7 +75,15 @@ export const getContent = async (req, res) => {
 // CREATE CONTENT
 export const createContent = async (req, res) => {
   try {
-    const { name, aboutCompany, whyChoose } = req.body;
+    const {
+      name,
+      aboutCompany,
+      whyChoose,
+      heroImage,
+      galleryImages,
+      introImages,
+      showcaseImages
+    } = req.body;
 
     if (!name || !aboutCompany || !whyChoose) {
       return res.status(400).json({
@@ -53,7 +104,11 @@ export const createContent = async (req, res) => {
     const content = await Content.create({
       name,
       aboutCompany,
-      whyChoose
+      whyChoose,
+      heroImage: heroImage || "/images/hero.png",
+      galleryImages: galleryImages || defaultGalleryImages,
+      introImages: introImages || defaultIntroImages,
+      showcaseImages: showcaseImages || defaultShowcaseImages
     });
 
     res.status(201).json({
@@ -73,18 +128,33 @@ export const createContent = async (req, res) => {
 // UPDATE CONTENT
 export const updateContent = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, aboutCompany, whyChoose } = req.body;
+    const {
+      id
+    } = req.params;
+
+    const {
+      name,
+      aboutCompany,
+      whyChoose,
+      heroImage,
+      galleryImages,
+      introImages,
+      showcaseImages
+    } = req.body;
 
     const content = await Content.findByIdAndUpdate(
       id,
       {
         name,
         aboutCompany,
-        whyChoose
+        whyChoose,
+        heroImage,
+        galleryImages,
+        introImages,
+        showcaseImages
       },
       {
-        new: true,
+        returnDocument: "after",
         runValidators: true
       }
     );

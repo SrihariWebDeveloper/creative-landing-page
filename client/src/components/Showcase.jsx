@@ -1,10 +1,14 @@
 import { useRef, useState } from "react";
 
+import showcaseAsset7 from "../assets/images/7.jpg";
+import showcaseAsset8 from "../assets/images/8.jpg";
+import showcaseAsset9 from "../assets/images/9.jpg";
+
 function Showcase() {
   const [cardsImages, setCardsImages] = useState([
-    "/images/intro-1.jpg",
-    "/images/hero.png",
-    "/images/intro-2.jpg"
+    showcaseAsset7,
+    showcaseAsset8,
+    showcaseAsset9
   ]);
 
   const [activeCardIndex, setActiveCardIndex] = useState(null);
